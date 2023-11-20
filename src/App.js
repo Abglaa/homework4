@@ -20,9 +20,17 @@ const App = () => {
             setFormValid(false)
         } else {
             setFormValid(true)
-        }
-
+        }        
     }, [emailError, passwordError]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Submitted data:", { name, email, password });
+      };
+
+    const logFormData = () => {
+        console.log(name, email, password);
+      };
 
     const emailHandler = (e) =>{
         setEmail(e.target.value)
@@ -66,12 +74,14 @@ const App = () => {
             case 'password':
                 setPasswordDirty(true)
                 break
+                default:
+                    break
         }
     }
 
     return (
         <div className="app">
-            <video autoPlay loop className="bg-video">
+            <video autoPlay loop muted className="bg-video">
                 <source src={movie} type="video/mp4"/>
             </video>
             <form>
@@ -86,7 +96,7 @@ const App = () => {
                     {(passwordDirty && passwordError) && <div style={{color: 'red'}}>{passwordError}</div>}
                     <input onChange={e => passwordHandler(e)} value={password} onBlur={e => blurHandler(e)} name='password' type="password" placeholder='Enter your password....'/>
 
-                    <button disabled={!formValid} type={"submit"}>submit</button>
+                    <button onClick={handleSubmit} disabled={!formValid} type={"submit"}>submit</button>
                 </div>
             </form>
 
